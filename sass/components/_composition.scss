@@ -1,0 +1,59 @@
+.composition {
+  position: relative;
+  &__photo {
+    width: 55%; //images' width should be defined with percentage for responsive design
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    transition: all 0.2s;
+
+    @include respond(tab-port) {
+      float: left;
+      position: relative;
+      width: 33.3%;
+    }
+
+    &--1 {
+      top: -2rem;
+      left: 0;
+
+      @include respond(tab-port) {
+        top: 0;
+        transform: scale(1.2);
+      }
+    }
+
+    &--2 {
+      top: 2rem;
+      right: 0;
+
+      @include respond(tab-port) {
+        top: -1rem;
+        transform: scale(1.3);
+        z-index: 1;
+      }
+    }
+
+    &--3 {
+      top: 10rem;
+      left: 20%;
+      @include respond(tab-port) {
+        top: 1rem;
+        left: 0;
+        transform: scale(1.1);
+      }
+    }
+
+    &:hover {
+      outline: 1.5rem solid $color-primary;
+      outline-offset: 1rem;
+      transform: scale(1.1) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5);
+      z-index: 1;
+    }
+  }
+
+  &:hover > &__photo:not(:hover) {
+    transform: scale(0.95);
+  }
+}

@@ -1,0 +1,112 @@
+.form {
+  &__group {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__input {
+    color: inherit;
+    font-size: $default-font-size;
+    padding: 1.5rem 2rem;
+    border-radius: 0.2rem;
+    background-color: rgba($color-white, 0.5);
+    border: none;
+    font-family: inherit;
+    border-bottom: 0.3rem solid transparent;
+    width: 90%;
+    display: block;
+    transition: all 0.4s;
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
+
+    &:focus {
+      border-bottom: 0.3rem solid $color-primary;
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+    }
+
+    &:focus:invalid {
+      border-bottom: 0.3rem solid $color-secondary-dark;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $color-dark-grey-2;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0.9rem 0 0 2rem;
+    transition: all 0.4s;
+  }
+
+  //"+" means label is adjacent sibling(comes right after the input). If there would be other elements between them,  "~" would be used("~" fits both situations)
+
+  //label cannot be placed before input. because in that case "+" doesnt work.
+  &__input:placeholder-shown + &__label {
+    //why not only opacity:0 - in that case element does not disappear, just invisible
+    //why not only visibility:hidden - visibility cannot be animated but opacity can.
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__radio-group {
+    width: 45%;
+    display: inline-block;
+
+    @include respond(tab-port) {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__radio-input {
+    display: none;
+  }
+
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4rem;
+  }
+
+  &__radio-button {
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    border: 0.5rem solid $color-primary;
+    border-radius: 50%;
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+
+    &::after {
+      @include centering;
+      content: "";
+      display: block;
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+      background-color: $color-primary;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+  }
+
+  &__radio-input:checked + &__radio-label > &__radio-button::after {
+    opacity: 1;
+  }
+
+  @include respond(tab-port) {
+    &__btn {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.header {
+  position: relative;
+  height: 85vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.7),
+      rgba($color-primary-dark, 0.7)
+    ),
+    url(../img/hero-small.jpg);
+  background-size: cover; /*to keep the image inside the box when viewport changes */
+  background-position: top; /*the property is used to ensure which part of container should remain when viewport changes*/
+
+  //not fully supported by most used browsers(caniuse.com). so for worst case scenario
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    height: 95vh;
+    -webkit-clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 80vh,
+      0 100%
+    ); /*to crop the image*/
+    clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+  }
+  //The goal here is to load the bigger image when resolution of screen is high. 192dpi(dot per inch) is apple retina screen which is used as reference of high resolution screen. Why min-width:37.5em? Because if screen is smaller than 600px(phone screen basically), small image is totally enough. And third condition is for huge screens(doesnt depend on resolution).      , = or
+  //min-resolution is not supported by safari, that's why second property(pixel-ratio) is added.
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+    only screen and (min-width: 125em) {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.7),
+        rgba($color-primary-dark, 0.7)
+      ),
+      url(../img/hero.jpg);
+  }
+
+  @include respond(tab-port) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%);
+  }
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    @include centering;
+    top: 40%;
+    text-align: center;
+  }
+}

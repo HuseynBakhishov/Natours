@@ -1,0 +1,43 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  //1rem = root font size. Normally, 1rem = 16px but in order to do work easier, I defined 1rem = 10px. And to make website user-friendly(when user changes default font-size or zoom, website should work properly), Relative unit(%) is used to convert to px.
+  font-size: 62.5%; //1rem = 10px; 10/16 = 62.5%;
+
+  @include respond(tab-land) {
+    //width < 1200?
+    font-size: 56.25%; //1rem = 9px; 9/16 = 56.25%;
+  }
+  @include respond(tab-port) {
+    //width < 900?
+    font-size: 50%; //1rem = 8px; 8/16 = 50%
+  }
+  @include respond(phone) {
+    //width < 600?
+    font-size: 43.75%; //1rem = 7px; 5/16 = 50%
+  }
+
+  @include respond(big-desk) {
+    font-size: 75%; //1rem = 12px; 12/16 = 75%;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  padding: 2.5rem;
+
+  @include respond(tab-port) {
+    padding: 0; //to get rid of white border around the page
+  }
+}
+
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}

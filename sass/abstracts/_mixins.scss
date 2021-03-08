@@ -1,0 +1,50 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+@mixin centering {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/////Media queries////
+//Phone: 0 - 600px
+//Tablet portrait: 600px - 900px
+//Tablet landscape: 900px - 1200px
+//Desktop: 1200px - 1800px
+//Big desktop: 1800px+
+//1(r)em = 16px in media queries. Because they are not affected by root font size settings. They are equal to default font size(usually 16px) and if user changes default font size to 20, then 1(r)em = 20px.
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    //only screen - if page is printed, media queries dont apply
+    @media only screen and (max-width: 37.5em) {
+      //600px/16
+      @content;
+    }
+  }
+  @if $breakpoint == tab-port {
+    //900px/16
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+  @if $breakpoint == tab-land {
+    //1200px/16
+    @media only screen and (max-width: 75em) {
+      @content;
+    }
+  }
+  @if $breakpoint == big-desk {
+    //1800px/16
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}
